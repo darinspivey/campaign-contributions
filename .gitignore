@@ -1,0 +1,6 @@
+.nyc_output
+node_modules/
+npm-debug.log
+coverage/
+.DS_Store
+api.key

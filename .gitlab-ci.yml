@@ -1,0 +1,26 @@
+stages:
+  - test
+  - release
+
+before_script:
+  - npm install
+
+test:integration:
+  image: gcr.io/xxx/node:release12
+  stage: test
+  except:
+    - tags
+    - master
+  script:
+    - npm run test
+  artifacts:
+    paths:
+      - coverage/
+
+release:
+  image: gcr.io/xxx/node:release12
+  stage: release
+  script:
+    - do-release --publish --build-arg NPM_TOKEN --auto-deploy --gitlab-token="${COMMITBOT_GITLAB_TOKEN}"
+  only:
+    - master
